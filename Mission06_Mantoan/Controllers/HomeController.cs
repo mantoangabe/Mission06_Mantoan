@@ -6,6 +6,12 @@ namespace Mission06_Mantoan.Controllers;
 
 public class HomeController : Controller
 {
+    public MovieContext _context;
+
+    public HomeController(MovieContext temp)
+    {
+        _context = temp;
+    }
     public IActionResult Index()
     {
         return View();
@@ -20,10 +26,17 @@ public class HomeController : Controller
     {
         return View();
     }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [HttpPost]
+    public IActionResult AddMovie(Movie movie)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        if (ModelState.IsValid)
+        {
+            _context.Movies.Add(movie);
+            _context.SaveChanges();
+            return RedirectToAction("AddMovie"); 
+        }
+
+        return View(movie);
     }
+
 }
