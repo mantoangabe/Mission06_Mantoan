@@ -38,5 +38,10 @@ public class HomeController : Controller
 
         return View(movie);
     }
-
+    public IActionResult ViewMovies()
+    {
+        var Movies = _context.Movies
+            .OrderBy(x => x.Title).ToList();
+        return View(Movies);
+    }
 }
