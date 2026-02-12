@@ -1,11 +1,11 @@
-@model Movie
+@model Movie1
 @{
     ViewData["Title"] = "Add Film";
 }
 
 <div class="container mt-4">
     <div class="text-center">
-        <h1 class="display-4">Enter a Movie!</h1>
+        <h1 class="display-4">Enter a Movie1!</h1>
         <p class="lead">Enter a movie to be reviewed by me!</p>
     </div>
 
@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Title">Movie Name:</label>
+                    <label class="form-label" asp-for="Title">Movie1 Name:</label>
                     <input class="form-control" asp-for="Title" required />
                 </div>
 
@@ -61,7 +61,7 @@
                     <textarea class="form-control" maxlength="25" rows="2" asp-for="Notes"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Add Movie</button>
+                <button type="submit" class="btn btn-primary">Add Movie1</button>
             </form>
         </div>
     </div>

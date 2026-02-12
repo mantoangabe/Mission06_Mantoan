@@ -16,7 +16,7 @@ namespace Mission06_Mantoan.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.2");
 
-            modelBuilder.Entity("Mission06_Mantoan.Models.Movie", b =>
+            modelBuilder.Entity("Mission06_Mantoan.Models.Movie1", b =>
                 {
                     b.Property<int>("MovieId")
                         .ValueGeneratedOnAdd()

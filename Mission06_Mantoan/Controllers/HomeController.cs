@@ -1,14 +1,15 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission06_Mantoan.Models;
 
 namespace Mission06_Mantoan.Controllers;
 
 public class HomeController : Controller
 {
-    public MovieContext _context;
+    public JoelHiltonMovieCollectionContext _context;
 
-    public HomeController(MovieContext temp)
+    public HomeController(JoelHiltonMovieCollectionContext temp)
     {
         _context = temp;
     }
@@ -41,7 +42,9 @@ public class HomeController : Controller
     public IActionResult ViewMovies()
     {
         var Movies = _context.Movies
-            .OrderBy(x => x.Title).ToList();
+            .Include(m => m.Category)
+            .OrderBy(m => m.Title)
+            .ToList();
         return View(Movies);
     }
 }
