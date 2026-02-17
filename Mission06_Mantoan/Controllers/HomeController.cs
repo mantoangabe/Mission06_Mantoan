@@ -35,9 +35,9 @@ public class HomeController : Controller
     }
 // POST
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public IActionResult AddMovie(Movie movie)
     {
+        
         if (ModelState.IsValid)
         {
             _context.Movies.Add(movie);
@@ -55,6 +55,7 @@ public class HomeController : Controller
     }
     public IActionResult ViewMovies()
     {
+        //LINQ query to pull info 
         var Movies = _context.Movies
             .Include(m => m.Category)
             .OrderBy(m => m.Title)
@@ -63,7 +64,7 @@ public class HomeController : Controller
     }
     //Delete
     [HttpPost]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int id) //Accepts the ID to delete from the db using .Remove
     {
         var movie = _context.Movies.Find(id);
 
@@ -74,6 +75,45 @@ public class HomeController : Controller
         }
 
         return RedirectToAction(nameof(ViewMovies));
+    }
+ //Get Edit page
+ public IActionResult Edit(int id) //Opens an identical page to add Movies with a different title and has the info autopopulated
+ {
+     var movie = _context.Movies.Find(id);
+
+     if (movie == null)
+     {
+         return NotFound();
+     }
+
+     var categories = _context.Categories
+         .OrderBy(c => c.CategoryName)
+         .ToList();
+
+     ViewBag.CategoryList =
+         new SelectList(categories, "CategoryId", "CategoryName", movie.CategoryId);
+
+     return View(movie);
+ }
+// Post Edit
+    [HttpPost]
+    public IActionResult Edit(Movie movie) //posts changes...
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Update(movie);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(ViewMovies));
+        }
+
+        var categories = _context.Categories
+            .OrderBy(c => c.CategoryName)
+            .ToList();
+
+        ViewBag.CategoryList =
+            new SelectList(categories, "CategoryId", "CategoryName", movie.CategoryId);
+
+        return View(movie);
     }
 
 }

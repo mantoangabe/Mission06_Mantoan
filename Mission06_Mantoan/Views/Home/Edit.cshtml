@@ -1,17 +1,19 @@
-@model Mission06_Mantoan.Models.Movie
+﻿@model Mission06_Mantoan.Models.Movie
 @{
-    ViewData["Title"] = "Add Film";
+    ViewData["Title"] = "Edit Film";
 }
 
 <div class="container mt-4">
     <div class="text-center">
-        <h1 class="display-4">Enter a Movie!</h1>
-        <p class="lead">Enter a movie to be reviewed by me!</p>
-    </div>
+        <h1 class="display-4">Edit a Movie!</h1>
+        </div>
 
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form asp-action="AddMovie" method="post">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="MovieId" />
+
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
                 <div class="mb-3">
                     <label asp-for="CategoryId" class="form-label">Category:</label>
@@ -53,7 +55,7 @@
 
                 <div class="mb-3">
                     <label asp-for="Edited" class="form-label">Edited</label>
-                    <select asp-for="Edited" class="form-select" required>
+                    <select asp-for="Edited" class="form-select">
                         <option value="">-- Select --</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
