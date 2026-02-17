@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Mission06_Mantoan.Models;
 
@@ -25,17 +26,30 @@ public class HomeController : Controller
 
     public IActionResult AddMovie()
     {
+        var categories = _context.Categories
+            .OrderBy(c => c.CategoryName)
+            .ToList();
+
+        ViewBag.CategoryList = new SelectList(categories, "CategoryId", "CategoryName");
         return View();
     }
+// POST
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult AddMovie(Movie movie)
     {
         if (ModelState.IsValid)
         {
             _context.Movies.Add(movie);
             _context.SaveChanges();
-            return RedirectToAction("AddMovie"); 
+            return RedirectToAction(nameof(Index));
         }
+
+        // If validation fails re-populate the dropdown
+        var categories = _context.Categories
+            .OrderBy(c => c.CategoryName)
+            .ToList();
+        ViewBag.CategoryList = new SelectList(categories, "CategoryId", "CategoryName", movie.CategoryId);
 
         return View(movie);
     }
@@ -47,4 +61,19 @@ public class HomeController : Controller
             .ToList();
         return View(Movies);
     }
+    //Delete
+    [HttpPost]
+    public IActionResult Delete(int id)
+    {
+        var movie = _context.Movies.Find(id);
+
+        if (movie != null)
+        {
+            _context.Movies.Remove(movie);
+            _context.SaveChanges();
+        }
+
+        return RedirectToAction(nameof(ViewMovies));
+    }
+
 }

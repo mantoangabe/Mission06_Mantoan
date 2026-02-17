@@ -1,4 +1,4 @@
-@model Movie1
+@model Mission06_Mantoan.Models.Movie
 @{
     ViewData["Title"] = "Add Film";
 }
@@ -11,57 +11,70 @@
 
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form method="post">
+            <form asp-action="AddMovie" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Category">Category:</label>
-                    <input class="form-control" asp-for="Category" required />
+                    <label asp-for="CategoryId" class="form-label">Category:</label>
+                    <select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select" required>
+                        <option value="">-- Select Category --</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Title">Movie1 Name:</label>
+                    <label asp-for="Title" class="form-label">Movie Name:</label>
                     <input class="form-control" asp-for="Title" required />
+                    <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="ReleaseYear">Release Year:</label>
-                    <input class="form-control" type="number" asp-for="ReleaseYear" required />
+                    <label asp-for="Year" class="form-label">Release Year:</label>
+                    <input class="form-control" type="number" asp-for="Year" required />
+                    <span asp-validation-for="Year" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Director">Director:</label>
+                    <label asp-for="Director" class="form-label">Director:</label>
                     <input class="form-control" asp-for="Director" required />
+                    <span asp-validation-for="Director" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="rating" asp-for="Rating">Rating:</label>
+                    <label asp-for="Rating" class="form-label">Rating:</label>
                     <select class="form-select" asp-for="Rating" required>
                         <option value="">--Select--</option>
-                        <option value="G">G</option>
-                        <option value="PG">PG</option>
-                        <option value="PG-13">PG-13</option>
-                        <option value="R">R</option>
+                        <option>G</option>
+                        <option>PG</option>
+                        <option>PG-13</option>
+                        <option>R</option>
                     </select>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
                 </div>
 
-                <label asp-for="Edited" class="form-label">Edited</label>
-                <select asp-for="Edited" class="form-select">
-                    <option value="">-- Select --</option>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select>
-
+                <div class="mb-3">
+                    <label asp-for="Edited" class="form-label">Edited</label>
+                    <select asp-for="Edited" class="form-select">
+                        <option value="">-- Select --</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                    <span asp-validation-for="Edited" class="text-danger"></span>
+                </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="LentTo">Lent to:</label>
+                    <label asp-for="LentTo" class="form-label">Lent to:</label>
                     <input class="form-control" asp-for="LentTo"/>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Notes">Notes (Max 25 characters):</label>
+                    <label asp-for="Notes" class="form-label">Notes (Max 25 characters):</label>
                     <textarea class="form-control" maxlength="25" rows="2" asp-for="Notes"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Add Movie1</button>
+                <button type="submit" class="btn btn-primary">Add Movie</button>
             </form>
         </div>
     </div>
