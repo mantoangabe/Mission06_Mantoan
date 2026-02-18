@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Mission06_Mantoan.Models;
-
+//Class used for old Db. used in mission 06
 public class Movie1
 {
     [Key]

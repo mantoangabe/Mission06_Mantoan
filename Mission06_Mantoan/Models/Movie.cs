@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Mission06_Mantoan.Models;
-
+//New Db for Mission 07
 public partial class Movie
 {
     public int MovieId { get; set; }
@@ -28,5 +28,5 @@ public partial class Movie
 
     public string? Notes { get; set; }
 
-    public virtual Category? Category { get; set; } //To link to other table
+    public virtual Category? Category { get; set; } //To link to other table; found this was easier than the [ForeignKey("CategoryId"] Method
 }
